@@ -1,17 +1,165 @@
 ---
-
+import "../styles/global.css";
+import TopNavBar from "../components/TopNavBar.astro";
+import Hero from "../components/Hero.astro";
+import Socials from "../components/Socials.astro";
+import Benefits from "../components/Benefits.astro";
+import Sponsors from "../components/Sponsors.astro";
+import AlliedCommunities from "../components/AlliedCommunities.astro";
+import JoinUs from "../components/JoinUs.astro";
+import Footer from "../components/Footer.astro";
 ---
 
-<html lang="en">
+<!doctype html>
+<html class="light" lang="es" style="">
 	<head>
 		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<meta content="width=device-width, initial-scale=1.0" name="viewport" />
+		<title>
+			GDG Guadalajara | Comunidad Oficial de Google Developers en
+			Guadalajara
+		</title>
+		<meta
+			name="description"
+			content="Únete a GDG Guadalajara, la comunidad oficial de Google Developers. Conecta con expertos, aprende sobre IA, Cloud, Android y asiste a los mejores eventos tech en Guadalajara."
+		/><meta
+			name="keywords"
+			content="GDG Guadalajara, Google Developer Groups, comunidad tech Guadalajara, eventos programación, inteligencia artificial, Google Cloud, Android Guadalajara"
+		/><meta
+			property="og:title"
+			content="GDG Guadalajara | Comunidad Oficial de Google Developers"
+		/><meta
+			property="og:description"
+			content="Conecta, aprende y comparte con la comunidad tech más grande de Guadalajara."
+		/><meta property="og:type" content="website" />
+		<link rel="icon" type="image/png" href="/favicon.png" />
 	</head>
-	<body>
-		<h1>Astro</h1>
+	<body
+		class="bg-background text-on-background font-body-md selection:bg-primary-fixed selection:text-on-primary-fixed overflow-x-hidden"
+	>
+		<TopNavBar />
+
+		<main class="mt-16">
+			<Hero />
+			<Socials />
+			<Benefits />
+			<Sponsors />
+			<AlliedCommunities />
+			<JoinUs />
+		</main>
+
+		<Footer />
+
+		<script>
+			// Simple Intersection Observer for scroll animations
+			const observerOptions = {
+				threshold: 0.1,
+			};
+
+			const observer = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add("active");
+					}
+				});
+			}, observerOptions);
+
+			document
+				.querySelectorAll(".reveal")
+				.forEach((el) => observer.observe(el));
+
+			// Navigation active states logic
+			const navLinks = document.querySelectorAll(".nav-link");
+			const activeClasses = [
+				"text-primary",
+				"dark:text-primary-fixed",
+				"font-bold",
+				"border-b-2",
+				"border-primary",
+				"dark:border-primary-fixed",
+				"pb-1"
+			];
+			const inactiveClasses = [
+				"text-on-surface-variant",
+				"dark:text-surface-variant"
+			];
+
+			function setActiveNavLink(href: string) {
+				navLinks.forEach((link) => {
+					if (link.getAttribute("href") === href) {
+						link.classList.add(...activeClasses);
+						link.classList.remove(...inactiveClasses);
+					} else {
+						link.classList.remove(...activeClasses);
+						link.classList.add(...inactiveClasses);
+					}
+				});
+			}
+
+			// Smooth scroll for internal links
+			document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+				anchor.addEventListener("click", (e) => {
+					const href = anchor.getAttribute("href");
+					if (!href) return;
+
+					if (href === "#") {
+						e.preventDefault();
+						window.scrollTo({
+							top: 0,
+							behavior: "smooth",
+						});
+						setActiveNavLink("#inicio");
+						return;
+					}
+
+					try {
+						const target = document.querySelector(href);
+						if (target) {
+							e.preventDefault();
+							target.scrollIntoView({
+								behavior: "smooth",
+							});
+							setActiveNavLink(href);
+						}
+					} catch (err) {
+						// Ignore errors for invalid selectors
+					}
+				});
+			});
+
+			// Scroll Spy to update active link on scroll
+			const spySections = document.querySelectorAll("section[id], div[id]");
+			const spyOptions = {
+				root: null,
+				rootMargin: "-20% 0px -70% 0px",
+				threshold: 0,
+			};
+
+			const spyObserver = new IntersectionObserver((entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						const id = entry.target.getAttribute("id");
+						if (id) {
+							setActiveNavLink(`#${id}`);
+						}
+					}
+				});
+			}, spyOptions);
+
+			spySections.forEach((section) => spyObserver.observe(section));
+
+			// Hover scale interaction logic for elements that might need programmatic control
+			const cards = document.querySelectorAll(".group");
+			cards.forEach((card) => {
+				if (card instanceof HTMLElement) {
+					card.addEventListener("mouseenter", () => {
+						card.style.transform = "translateY(-8px)";
+					});
+					card.addEventListener("mouseleave", () => {
+						card.style.transform = "translateY(0)";
+					});
+				}
+			});
+		</script>
 	</body>
 </html>

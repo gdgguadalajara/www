@@ -1,0 +1,40 @@
+---
+import TechIllustration from './TechIllustration.astro';
+---
+
+<section
+	id="inicio"
+	class="relative min-h-[85vh] flex items-center px-margin-mobile md:px-lg max-w-container-max mx-auto overflow-hidden"
+>
+	<div
+		class="grid grid-cols-1 md:grid-cols-2 gap-2xl items-center w-full"
+	>
+		<div class="z-10 reveal active">
+			<h1
+				class="font-headline-xl text-headline-xl mb-md text-on-surface leading-tight"
+			>
+				Conecta, Aprende y Comparte con la comunidad tech de
+				Guadalajara
+			</h1>
+			<p
+				class="font-body-lg text-body-lg text-on-surface-variant mb-xl"
+			>
+				Somos un grupo de desarrolladores apasionados por la
+				tecnología de Google y el ecosistema open source.
+				Únete a nosotros para crecer juntos
+				profesionalmente.
+			</p>
+			<div class="flex flex-wrap gap-md">
+				<a
+					href="https://gdg.community.dev/gdg-guadalajara/"
+					target="_blank"
+					class="px-3xl py-md bg-primary text-on-primary rounded-xl font-label-md text-lg hover:bg-surface-tint shadow-md hover:shadow-xl transition-all duration-300 inline-block"
+					>Únete como miembro</a
+				>
+			</div>
+		</div>
+		<div class="relative reveal delay-200 active flex items-center justify-center">
+			<TechIllustration />
+		</div>
+	</div>
+</section>
