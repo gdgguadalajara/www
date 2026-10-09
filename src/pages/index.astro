@@ -8,6 +8,8 @@ import Sponsors from "../components/Sponsors.astro";
 import AlliedCommunities from "../components/AlliedCommunities.astro";
 import JoinUs from "../components/JoinUs.astro";
 import Footer from "../components/Footer.astro";
+
+const ogImage = new URL("/GDGGDG1200x630.png", Astro.url.origin).toString();
 ---
 
 <!doctype html>
@@ -32,6 +34,11 @@ import Footer from "../components/Footer.astro";
 			property="og:description"
 			content="Conecta, aprende y comparte con la comunidad tech más grande de Guadalajara."
 		/><meta property="og:type" content="website" />
+		<meta property="og:image" content={ogImage} />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:image" content={ogImage} />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 	</head>
 	<body
